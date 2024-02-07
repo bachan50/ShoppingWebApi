@@ -21,7 +21,8 @@ namespace ShoppingWebApi.Model
                 Brand = product.Brand,
                 Id = product.Id,
                 Name = product.Name,
-                Size = product.Size,    
+                Size = product.Size,  
+                price=product.price
             }));
             return response;
         }

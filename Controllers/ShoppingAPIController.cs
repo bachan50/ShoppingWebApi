@@ -12,8 +12,9 @@ namespace ShoppingWebApi.Controllers
     public class ShoppingAPIController : ControllerBase
     {
         private readonly DbHelper dbHelper;
-        public ShoppingAPIController(EF_DataContext eF_DataContext) {
-            dbHelper=new DbHelper(eF_DataContext);
+        public ShoppingAPIController(EF_DataContext eF_DataContext)
+        {
+            dbHelper = new DbHelper(eF_DataContext);
         }
 
         // GET: api/<ShoppingAPIController>
@@ -21,16 +22,19 @@ namespace ShoppingWebApi.Controllers
         [Route("api/[controller]/GetProducts")]
         public IActionResult Get()
         {
-            ResponseType type= ResponseType.Success;
-            try { 
-                IEnumerable<ProductModel> data=dbHelper.GetProducts();
+            ResponseType type = ResponseType.Success;
+            try
+            {
+                IEnumerable<ProductModel> data = dbHelper.GetProducts();
 
-                if (!data.Any()) {
+                if (!data.Any())
+                {
                     type = ResponseType.NotFound;
                 }
                 return Ok(ResponseHandler.GetAppResponse(type, data));
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 type = ResponseType.Failure;
                 return BadRequest(ResponseHandler.GetExceptionResponse(ex));
             }
@@ -46,7 +50,7 @@ namespace ShoppingWebApi.Controllers
             {
                 ProductModel data = dbHelper.GetProductsById(id);
 
-                if (data==null)
+                if (data == null)
                 {
                     type = ResponseType.NotFound;
                 }
@@ -61,14 +65,17 @@ namespace ShoppingWebApi.Controllers
         // POST api/<ShoppingAPIController>
         [HttpPost]
         [Route("api/[controller]/SaveOrder")]
-        public IActionResult Post([FromBody]  OrderModel model)
+        public IActionResult Post([FromBody] OrderModel model)
         {
-            try { 
-                ResponseType type=ResponseType.Success;
+            try
+            {
+                ResponseType type = ResponseType.Success;
                 dbHelper.SaveOrder(model);
-                return Ok(ResponseHandler.GetAppResponse(type,model));
+                return Ok(ResponseHandler.GetAppResponse(type, model));
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ResponseHandler.GetExceptionResponse(ex));
             }
         }
@@ -96,12 +103,14 @@ namespace ShoppingWebApi.Controllers
         [Route("api/[controller]/DeleteOrder/{id}")]
         public IActionResult Delete(int id)
         {
-            try {
+            try
+            {
                 ResponseType type = ResponseType.Success;
                 dbHelper.DeleteOrder(id);
                 return Ok(ResponseHandler.GetAppResponse(type, "Deleted Successfully"));
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return BadRequest(ResponseHandler.GetExceptionResponse(ex));
             }
         }
