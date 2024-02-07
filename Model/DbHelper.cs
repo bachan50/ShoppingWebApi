@@ -52,18 +52,18 @@ namespace ShoppingWebApi.Model
                     dbTable.Phone = orderModel.Phone;
                     dbTable.Address = orderModel.Address;
                 }
-                else {
-                    //POST
-                    dbTable.Phone = orderModel.Phone;
-                    dbTable.Name = orderModel.Name;
-                    dbTable.Address = orderModel.Address;
-                    dbTable.Product = dataContext.Products.Where(f => f.Id.Equals(orderModel.Product_Id)).FirstOrDefault();
-                    dataContext.Orders.Add(dbTable);
-                }
-                dataContext.SaveChanges();
-                    
-                
+   
             }
+            else
+            {
+                //POST
+                dbTable.Phone = orderModel.Phone;
+                dbTable.Name = orderModel.Name;
+                dbTable.Address = orderModel.Address;
+                dbTable.Product = dataContext.Products.Where(f => f.Id.Equals(orderModel.Product_Id)).FirstOrDefault();
+                dataContext.Orders.Add(dbTable);
+            }
+            dataContext.SaveChanges();
             {
 
 
